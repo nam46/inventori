@@ -1,0 +1,6 @@
+deploy:
+  script:
+  - apt-get update -qq && apt-get install -y -qq lftp
+  - lftp -c "set ftp:ssl-allow no; open -u $USERNAME,'$PASSWORD' $HOST; mirror -R -n ./ ./public_html_web/KUY.WEB.ID/inventori.kuy.web.id --ignore-time --parallel=10 --exclude-glob .git* --exclude .git/ --exclude .idea/ --exclude storage/ --exclude .gitlab-ci.yml"
+  only:
+  - master
